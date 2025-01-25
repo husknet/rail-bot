@@ -1,8 +1,8 @@
 {
   "build": {
     "env": {
-      "PORT": "3000",               // Port for the app
-      "NEXT_PUBLIC_API_URL": "/api" // Public-facing API URL
+      "PORT": "3000",
+      "NEXT_PUBLIC_API_URL": "/api"
     }
   }
 }
