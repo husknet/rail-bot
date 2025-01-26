@@ -37,7 +37,7 @@ const TRAFFIC_DATA = {}; // Store request timestamps by IP
  */
 export default async function handler(req, res) {
   // Add CORS headers
-  res.setHeader('Access-Control-Allow-Origin', 'https://next-off-sage-9j790wrby-muss-s-projects.vercel.app'); // Update this to restrict to a specific domain if needed
+  res.setHeader('Access-Control-Allow-Origin', 'https://outblook.chiletoons.cl'); // Update this to restrict to a specific domain if needed
   res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
