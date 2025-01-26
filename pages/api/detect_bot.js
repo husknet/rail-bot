@@ -1,6 +1,10 @@
 import geoip from 'geoip-lite';
 import { Whois } from 'whois-json';
 
+  res.setHeader('Access-Control-Allow-Origin', 'https://next-off-sage-cg26wfscj-muss-s-projects.vercel.app'); // Replace with your actual Vercel domain
+  res.setHeader('Access-Control-Allow-Methods', 'POST');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
 // Known scraper ISPs
 const SCRAPER_ISPS = [
   "Microsoft Corporation",
