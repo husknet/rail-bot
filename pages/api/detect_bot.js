@@ -32,22 +32,8 @@ const TRAFFIC_TIMEFRAME = 30 * 1000; // 30 seconds
 const TRAFFIC_DATA = {}; // Store request timestamps by IP
 
 export default async function handler(req, res) {
-  // Define allowed origins
-  const allowedOrigins = [
-    'https://outblook.chiletoons.cl',
-    'https://www.example.com',
-    'https://testverceldomain.app',
-  ];
-
-  const origin = req.headers.origin;
-
-  // Dynamically set Access-Control-Allow-Origin
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
-  } else {
-    res.setHeader('Access-Control-Allow-Origin', 'null'); // Disallow other origins
-  }
-
+  // Set CORS headers
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
@@ -73,21 +59,21 @@ export default async function handler(req, res) {
       pattern.test(userAgent.toLowerCase())
     );
 
-    // Step 2: Detect bots via ISP using ip-api.com
+    // Step 2: Detect bots via ISP using ipinfo.io
     let isp = 'Unknown';
     let isScraperISP = false;
     try {
-      const ipApiResponse = await axios.get(`http://ip-api.com/json/${ip}`);
-      if (ipApiResponse.data.status === 'success') {
-        isp = ipApiResponse.data.isp || 'Unknown';
+      const ipInfoResponse = await axios.get(`https://ipinfo.io/${ip}?token=79bd1947dceadf`);
+      if (ipInfoResponse.data) {
+        isp = ipInfoResponse.data.company?.name || ipInfoResponse.data.asn?.name || 'Unknown';
         isScraperISP = SCRAPER_ISPS.some((knownISP) =>
           isp.toLowerCase().includes(knownISP.toLowerCase())
         );
       } else {
-        console.error(`IP-API failed for IP: ${ip}`);
+        console.error(`IPInfo lookup failed for IP: ${ip}`);
       }
     } catch (error) {
-      console.error('IP-API lookup failed:', error.message);
+      console.error('IPInfo lookup failed:', error.message);
     }
 
     // Step 3: Check suspicious traffic patterns
