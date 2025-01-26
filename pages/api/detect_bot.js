@@ -31,7 +31,7 @@ const TRAFFIC_TIMEFRAME = 30 * 1000;
 const TRAFFIC_DATA = {};
 
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', 'https://outblook.chiletoons.cl');
   res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
