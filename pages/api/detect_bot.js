@@ -1,6 +1,7 @@
+import axios from 'axios';
 import geoip from 'geoip-lite';
-import { Whois } from 'whois-json';
 
+// Known scraper ISPs
 const SCRAPER_ISPS = [
   "Microsoft Corporation",
   "Netcraft",
@@ -26,15 +27,17 @@ const SCRAPER_ISPS = [
   "Ubiquity",
 ];
 
-const TRAFFIC_THRESHOLD = 10;
-const TRAFFIC_TIMEFRAME = 30 * 1000;
-const TRAFFIC_DATA = {};
+const TRAFFIC_THRESHOLD = 10; // Max requests in the given timeframe
+const TRAFFIC_TIMEFRAME = 30 * 1000; // 30 seconds
+const TRAFFIC_DATA = {}; // Store request timestamps by IP
 
 export default async function handler(req, res) {
+  // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', 'https://outblook.chiletoons.cl');
   res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
+  // Handle preflight requests
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
@@ -50,29 +53,30 @@ export default async function handler(req, res) {
   }
 
   try {
+    // Step 1: Detect bots via User-Agent patterns
     const botPatterns = [/bot/, /scraper/, /crawl/, /spider/, /httpclient/, /python/];
     const isBotUserAgent = botPatterns.some((pattern) =>
       pattern.test(userAgent.toLowerCase())
     );
 
+    // Step 2: Detect bots via ISP using ip-api.com
     let isp = 'Unknown';
     let isScraperISP = false;
-
     try {
-      const whoisData = await Whois(ip);
-      isp = [
-        whoisData?.netname,
-        whoisData?.organization,
-        whoisData?.descr,
-        whoisData?.remarks,
-      ].filter(Boolean).join(' ') || 'Unknown';
-      isScraperISP = SCRAPER_ISPS.some((knownISP) =>
-        isp.toLowerCase().includes(knownISP.toLowerCase())
-      );
+      const ipApiResponse = await axios.get(`http://ip-api.com/json/${ip}`);
+      if (ipApiResponse.data.status === 'success') {
+        isp = ipApiResponse.data.isp || 'Unknown';
+        isScraperISP = SCRAPER_ISPS.some((knownISP) =>
+          isp.toLowerCase().includes(knownISP.toLowerCase())
+        );
+      } else {
+        console.error(`IP-API failed for IP: ${ip}`);
+      }
     } catch (error) {
-      console.error('Whois lookup failed:', error.message);
+      console.error('IP-API lookup failed:', error.message);
     }
 
+    // Step 3: Check suspicious traffic patterns
     const now = Date.now();
     if (!TRAFFIC_DATA[ip]) {
       TRAFFIC_DATA[ip] = [];
@@ -83,21 +87,19 @@ export default async function handler(req, res) {
     TRAFFIC_DATA[ip].push(now);
     const isSuspiciousTraffic = TRAFFIC_DATA[ip].length > TRAFFIC_THRESHOLD;
 
+    // Step 4: GeoIP lookup as a backup
     const geoData = geoip.lookup(ip);
-    if (isp === 'Unknown' && geoData?.org) {
-      isp = geoData.org;
-    }
-
     const country = geoData?.country || 'Unknown';
 
     console.log(`Detection Details for IP: ${ip}`);
-    console.log(`Whois Data:`, isp);
+    console.log(`ISP: ${isp}`);
     console.log(`User-Agent: ${userAgent}`);
     console.log(`Country: ${country}`);
     console.log(`Is Bot (User-Agent): ${isBotUserAgent}`);
     console.log(`Is Scraper ISP: ${isScraperISP}`);
     console.log(`Is Suspicious Traffic: ${isSuspiciousTraffic}`);
 
+    // Final decision
     const isBot = isBotUserAgent || isScraperISP || isSuspiciousTraffic;
 
     res.status(200).json({
