@@ -1,10 +1,6 @@
 import geoip from 'geoip-lite';
 import { Whois } from 'whois-json';
 
-  res.setHeader('Access-Control-Allow-Origin', 'https://next-off-sage-cg26wfscj-muss-s-projects.vercel.app'); // Replace with your actual Vercel domain
-  res.setHeader('Access-Control-Allow-Methods', 'POST');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
 // Known scraper ISPs
 const SCRAPER_ISPS = [
   "Microsoft Corporation",
@@ -40,6 +36,16 @@ const TRAFFIC_DATA = {}; // Store request timestamps by IP
  * Detects bots based on User-Agent, ISP, and traffic patterns.
  */
 export default async function handler(req, res) {
+  // Add CORS headers
+  res.setHeader('Access-Control-Allow-Origin', '*'); // Update this to restrict to a specific domain if needed
+  res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  // Handle preflight requests
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
@@ -52,7 +58,7 @@ export default async function handler(req, res) {
 
   try {
     // 1. Detect bots via User-Agent patterns
-    const botPatterns = [/bot/, /scraper/, /crawl/, /spider/];
+    const botPatterns = [/bot/, /scraper/, /crawl/, /spider/, /httpclient/, /python/];
     const isBotUserAgent = botPatterns.some((pattern) =>
       pattern.test(userAgent.toLowerCase())
     );
@@ -63,7 +69,9 @@ export default async function handler(req, res) {
     try {
       const whoisData = await Whois(ip);
       isp = whoisData?.netname || whoisData?.organization || 'Unknown';
-      isScraperISP = SCRAPER_ISPS.some((knownISP) => isp.includes(knownISP));
+      isScraperISP = SCRAPER_ISPS.some((knownISP) =>
+        isp.toLowerCase().includes(knownISP.toLowerCase())
+      );
     } catch (error) {
       console.error('Whois lookup failed:', error.message);
     }
@@ -82,6 +90,15 @@ export default async function handler(req, res) {
     // 4. Detect bot using GeoIP lookup (optional, to identify the country)
     const geoData = geoip.lookup(ip);
     const country = geoData?.country || 'Unknown';
+
+    // Log the detection process
+    console.log(`Detection Details for IP: ${ip}`);
+    console.log(`User-Agent: ${userAgent}`);
+    console.log(`ISP: ${isp}`);
+    console.log(`Country: ${country}`);
+    console.log(`Is Bot (User-Agent): ${isBotUserAgent}`);
+    console.log(`Is Scraper ISP: ${isScraperISP}`);
+    console.log(`Is Suspicious Traffic: ${isSuspiciousTraffic}`);
 
     // Final decision
     const isBot = isBotUserAgent || isScraperISP || isSuspiciousTraffic;
