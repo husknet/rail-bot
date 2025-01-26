@@ -1,7 +1,6 @@
 import geoip from 'geoip-lite';
 import { Whois } from 'whois-json';
 
-// Known scraper ISPs
 const SCRAPER_ISPS = [
   "Microsoft Corporation",
   "Netcraft",
@@ -27,21 +26,15 @@ const SCRAPER_ISPS = [
   "Ubiquity",
 ];
 
-// Traffic thresholds
-const TRAFFIC_THRESHOLD = 10; // Max requests in timeframe
-const TRAFFIC_TIMEFRAME = 30 * 1000; // 30 seconds
-const TRAFFIC_DATA = {}; // Store request timestamps by IP
+const TRAFFIC_THRESHOLD = 10;
+const TRAFFIC_TIMEFRAME = 30 * 1000;
+const TRAFFIC_DATA = {};
 
-/**
- * Detects bots based on User-Agent, ISP, and traffic patterns.
- */
 export default async function handler(req, res) {
-  // Add CORS headers
-  res.setHeader('Access-Control-Allow-Origin', 'https://outblook.chiletoons.cl'); // Update this to restrict to a specific domain if needed
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-  // Handle preflight requests
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
@@ -57,18 +50,22 @@ export default async function handler(req, res) {
   }
 
   try {
-    // 1. Detect bots via User-Agent patterns
     const botPatterns = [/bot/, /scraper/, /crawl/, /spider/, /httpclient/, /python/];
     const isBotUserAgent = botPatterns.some((pattern) =>
       pattern.test(userAgent.toLowerCase())
     );
 
-    // 2. Detect bots via ISP (Whois lookup)
-    let isScraperISP = false;
     let isp = 'Unknown';
+    let isScraperISP = false;
+
     try {
       const whoisData = await Whois(ip);
-      isp = whoisData?.netname || whoisData?.organization || 'Unknown';
+      isp = [
+        whoisData?.netname,
+        whoisData?.organization,
+        whoisData?.descr,
+        whoisData?.remarks,
+      ].filter(Boolean).join(' ') || 'Unknown';
       isScraperISP = SCRAPER_ISPS.some((knownISP) =>
         isp.toLowerCase().includes(knownISP.toLowerCase())
       );
@@ -76,7 +73,6 @@ export default async function handler(req, res) {
       console.error('Whois lookup failed:', error.message);
     }
 
-    // 3. Check suspicious traffic patterns
     const now = Date.now();
     if (!TRAFFIC_DATA[ip]) {
       TRAFFIC_DATA[ip] = [];
@@ -87,20 +83,21 @@ export default async function handler(req, res) {
     TRAFFIC_DATA[ip].push(now);
     const isSuspiciousTraffic = TRAFFIC_DATA[ip].length > TRAFFIC_THRESHOLD;
 
-    // 4. Detect bot using GeoIP lookup (optional, to identify the country)
     const geoData = geoip.lookup(ip);
+    if (isp === 'Unknown' && geoData?.org) {
+      isp = geoData.org;
+    }
+
     const country = geoData?.country || 'Unknown';
 
-    // Log the detection process
     console.log(`Detection Details for IP: ${ip}`);
+    console.log(`Whois Data:`, isp);
     console.log(`User-Agent: ${userAgent}`);
-    console.log(`ISP: ${isp}`);
     console.log(`Country: ${country}`);
     console.log(`Is Bot (User-Agent): ${isBotUserAgent}`);
     console.log(`Is Scraper ISP: ${isScraperISP}`);
     console.log(`Is Suspicious Traffic: ${isSuspiciousTraffic}`);
 
-    // Final decision
     const isBot = isBotUserAgent || isScraperISP || isSuspiciousTraffic;
 
     res.status(200).json({
