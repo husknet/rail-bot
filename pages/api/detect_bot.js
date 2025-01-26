@@ -32,8 +32,22 @@ const TRAFFIC_TIMEFRAME = 30 * 1000; // 30 seconds
 const TRAFFIC_DATA = {}; // Store request timestamps by IP
 
 export default async function handler(req, res) {
-  // Set CORS headers
-  res.setHeader('Access-Control-Allow-Origin', 'https://outblook.chiletoons.cl');
+  // Define allowed origins
+  const allowedOrigins = [
+    'https://outblook.chiletoons.cl',
+    'https://www.example.com',
+    'https://testverceldomain.app',
+  ];
+
+  const origin = req.headers.origin;
+
+  // Dynamically set Access-Control-Allow-Origin
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  } else {
+    res.setHeader('Access-Control-Allow-Origin', 'null'); // Disallow other origins
+  }
+
   res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
