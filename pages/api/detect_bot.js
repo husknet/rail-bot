@@ -6,6 +6,7 @@ const SCRAPER_ISPS = [
   "Microsoft Corporation",
   "Microsoft Limited",
   "Netcraft",
+  "COMPASS COMPRESSION SERVICES LTD",
   "DigitalOcean",
   "Amazon Technologies Inc.",
   "Google LLC",
