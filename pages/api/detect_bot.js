@@ -22,6 +22,8 @@ const SCRAPER_ISPS = [
   "Choopa",
   "Contabo GmbH",
   "Leaseweb",
+  "Censys, Inc.",
+  "Windscribe Limited",
   "Scaleway",
   "Vultr",
   "Ubiquity",
