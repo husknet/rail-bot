@@ -24,6 +24,7 @@ const SCRAPER_ISPS = [
   "Leaseweb",
   "Censys, Inc.",
   "Windscribe",
+  "Asm Technologies",
   "Leaseweb Deutschland GmbH",
   "Amazon.com, Inc.",
   "Amazon Data Services Ireland Limited",
