@@ -25,6 +25,7 @@ const SCRAPER_ISPS = [
   "SoftLayer Technologies",
   "Fastly",
   "Cloudflare",
+  "Cloudflare London, LLC",
   "Akamai Technologies",
   "Akamai Technologies Inc.",
   "Hurricane Electric",
