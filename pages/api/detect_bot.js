@@ -9,6 +9,8 @@ const SCRAPER_ISPS = [
   "DigitalOcean",
   "Amazon Technologies Inc.",
   "Google LLC",
+  "Datacamp Limited",
+  "Helsinki, Finland",
   "NorthernTel Limited Partnership",
   "China Unicom Shandong province network",
   "CHINA UNICOM Shanghai city network",
