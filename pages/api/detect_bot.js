@@ -4,6 +4,7 @@ import geoip from 'geoip-lite';
 // Known scraper ISPs
 const SCRAPER_ISPS = [
   "Microsoft Corporation",
+  "Microsoft Limited",
   "Netcraft",
   "DigitalOcean",
   "Amazon Technologies Inc.",
