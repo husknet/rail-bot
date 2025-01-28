@@ -23,7 +23,7 @@ const SCRAPER_ISPS = [
   "Contabo GmbH",
   "Leaseweb",
   "Censys, Inc.",
-  "Windscribe Limited",
+  "Windscribe",
   "Scaleway",
   "Vultr",
   "Ubiquity",
