@@ -22,6 +22,7 @@ const SCRAPER_ISPS = [
   "Reliance Jio Infocomm Limited",
   "Linode, LLC",
   "OVH SAS",
+  "OVH Hosting, Inc.",
   "Hetzner Online GmbH",
   "Alibaba",
   "Oracle Corporation",
