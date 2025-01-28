@@ -18,6 +18,7 @@ const SCRAPER_ISPS = [
   "Fastly",
   "Cloudflare",
   "Akamai Technologies",
+  "Akamai Technologies Inc.",
   "Hurricane Electric",
   "Hostwinds",
   "Choopa",
