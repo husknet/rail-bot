@@ -4,6 +4,14 @@ import geoip from 'geoip-lite';
 // Known scraper ISPs
 const SCRAPER_ISPS = [
   "Microsoft Corporation",
+  "Not SURF Net",
+  "Nothing to hide",
+  "TOTAL PLAY TELECOMUNICACIONES SA DE CV",
+  "Driftnet Ltd",
+  "Telstra Limited",
+  "Accenture LLP",
+  "Kyivstar GSM",
+  "Cascades",
   "Microsoft Limited",
   "Netcraft",
   "Rockion LLC",
