@@ -4,6 +4,7 @@ import geoip from 'geoip-lite';
 // Known scraper ISPs
 const SCRAPER_ISPS = [
   "Barry Hamel Equipment Ltd",
+  "Bayer AG, Germany, Leverkusen",
   "TeraGo Networks Inc.",
   "Microsoft Corporation",
   "Zscaler, Inc.",
