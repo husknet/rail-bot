@@ -4,6 +4,7 @@ import geoip from 'geoip-lite';
 // Known scraper ISPs
 const SCRAPER_ISPS = [
   "Microsoft Corporation",
+  "Zscaler, Inc.",
   "Not SURF Net",
   "Nothing to hide",
   "TOTAL PLAY TELECOMUNICACIONES SA DE CV",
