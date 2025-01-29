@@ -3,6 +3,7 @@ import geoip from 'geoip-lite';
 
 // Known scraper ISPs
 const SCRAPER_ISPS = [
+  "Barry Hamel Equipment Ltd",
   "Microsoft Corporation",
   "Zscaler, Inc.",
   "BT global Communications India Private Limited-Access",
