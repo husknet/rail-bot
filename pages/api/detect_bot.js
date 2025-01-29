@@ -5,6 +5,7 @@ import geoip from 'geoip-lite';
 const SCRAPER_ISPS = [
   "Microsoft Corporation",
   "Zscaler, Inc.",
+  "BT global Communications India Private Limited-Access",
   "Not SURF Net",
   "Nothing to hide",
   "TOTAL PLAY TELECOMUNICACIONES SA DE CV",
