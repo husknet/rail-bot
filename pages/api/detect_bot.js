@@ -4,6 +4,11 @@ import geoip from 'geoip-lite';
 // Known scraper ISPs
 const SCRAPER_ISPS = [
   "Barry Hamel Equipment Ltd",
+  "Kaopu Cloud HK Limited",
+  "Cyber Assets FZCO",
+  "Total server solutions LLC",
+  "Internet Utilities Africa (PTY) LTD",
+  "Internet Utilities Africa",
   "Linode",
   "Bayer AG, Germany, Leverkusen",
   "TeraGo Networks Inc.",
