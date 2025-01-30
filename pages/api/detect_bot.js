@@ -8,7 +8,7 @@ const SCRAPER_ISPS = [
   "Cyber Assets FZCO",
   "Total server solutions LLC",
   "Internet Utilities Africa (PTY) LTD",
-  "Internet Utilities Africa",
+  "Atria Convergence Technologies Ltd.,",
   "Linode",
   "Bayer AG, Germany, Leverkusen",
   "TeraGo Networks Inc.",
