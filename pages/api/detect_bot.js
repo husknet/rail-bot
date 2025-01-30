@@ -4,6 +4,7 @@ import geoip from 'geoip-lite';
 // Known scraper ISPs
 const SCRAPER_ISPS = [
   "Barry Hamel Equipment Ltd",
+  "Blix Group AS",
   "Kaopu Cloud HK Limited",
   "Cyber Assets FZCO",
   "Total server solutions LLC",
