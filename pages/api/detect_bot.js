@@ -4,6 +4,10 @@ import geoip from 'geoip-lite';
 // Known scraper ISPs
 const SCRAPER_ISPS = [
   "Barry Hamel Equipment Ltd",
+  "Cox Communications Inc.",
+  "ONYPHE SAS",
+  "Internet Utilities Europe and Asia Limited",
+  "KYOCERA AVX Components (Dresden) GmbH",
   "Blix Group AS",
   "Kaopu Cloud HK Limited",
   "Cyber Assets FZCO",
