@@ -4,6 +4,11 @@ import geoip from 'geoip-lite';
 // Known scraper ISPs
 const SCRAPER_ISPS = [
   "Barry Hamel Equipment Ltd",
+  "M247 LTD Berlin Infrastructure",
+  "BRETAGNE TELECOM SASU",
+  "M247 Ltd - Brazil Infrastructure",
+  "ZAP-Hosting.com - IF YOU WANT MORE POWER",
+  "ZAP-Hosting GmbH",
   "Artic Solutions SARL",
   "UCLOUD",
   "Cox Communications Inc.",
