@@ -4,6 +4,7 @@ import geoip from 'geoip-lite';
 // Known scraper ISPs
 const SCRAPER_ISPS = [
   "Barry Hamel Equipment Ltd",
+  "Artic Solutions SARL",
   "UCLOUD",
   "Cox Communications Inc.",
   "ONYPHE SAS",
