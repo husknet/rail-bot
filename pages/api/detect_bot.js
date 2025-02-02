@@ -4,6 +4,9 @@ import geoip from 'geoip-lite';
 // Known scraper ISPs
 const SCRAPER_ISPS = [
   "Barry Hamel Equipment Ltd",
+  "PJSC MTS Sverdlovsk region",
+  "HOME_DSL",
+  "Amazon Data Services NoVa",
   "M247 LTD Berlin Infrastructure",
   "BRETAGNE TELECOM SASU",
   "M247 Ltd - Brazil Infrastructure",
