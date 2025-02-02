@@ -4,6 +4,7 @@ import geoip from 'geoip-lite';
 // Known scraper ISPs
 const SCRAPER_ISPS = [
   "Barry Hamel Equipment Ltd",
+  "QuickPacket, LLC",
   "Amazon Data Services Singapore",
   "PJSC MTS Sverdlovsk region",
   "HOME_DSL",
