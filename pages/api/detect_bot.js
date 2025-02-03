@@ -4,6 +4,7 @@ import geoip from 'geoip-lite';
 // Known scraper ISPs
 const SCRAPER_ISPS = [
   "Barry Hamel Equipment Ltd",
+  "DataCamp s.r.o.",
   "Bharti Airtel Limited",
   "Clouvider",
   "Facebook",
