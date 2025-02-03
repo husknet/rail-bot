@@ -4,6 +4,7 @@ import geoip from 'geoip-lite';
 // Known scraper ISPs
 const SCRAPER_ISPS = [
   "Barry Hamel Equipment Ltd",
+  "Charter Communications",
   "DLF Cable Network",
   "Packethub S.A.",
   "DataCamp s.r.o.",
