@@ -8,7 +8,7 @@ const ALLOWED_ORIGINS = [
   "https://amy.com"
 ];
 
-// ✅ Known scraper ISPs
+// ✅ Full List of Blacklisted ISPs (Known Scraper Networks)
 const SCRAPER_ISPS = [
   "Google LLC",
   "Contabo Inc.",
@@ -107,7 +107,7 @@ const SCRAPER_ISPS = [
   "Ubiquity"
 ];
 
-const TRAFFIC_THRESHOLD = 10; // Max requests in 30 seconds
+const TRAFFIC_THRESHOLD = 10; // Max requests allowed in 30 seconds
 const TRAFFIC_TIMEFRAME = 30 * 1000; // 30 seconds
 const TRAFFIC_DATA = {}; // Store request timestamps by IP
 
@@ -129,12 +129,12 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const { user_agent: userAgent, ip } = req.body;
-  if (!userAgent || !ip) {
-    return res.status(400).json({ error: "Invalid request: Missing user_agent or IP." });
-  }
-
   try {
+    const { user_agent: userAgent, ip } = req.body;
+    if (!userAgent || !ip) {
+      return res.status(400).json({ error: "Invalid request: Missing user_agent or IP." });
+    }
+
     // ✅ Step 1: Detect bots via User-Agent patterns
     const botPatterns = [/bot/, /scraper/, /crawl/, /spider/, /httpclient/, /python/];
     const isBotUserAgent = botPatterns.some((pattern) =>
@@ -148,8 +148,8 @@ export default async function handler(req, res) {
       const ipInfoResponse = await axios.get(`https://ipinfo.io/${ip}?token=ea0e4253eb865f`);
       if (ipInfoResponse.data) {
         isp = ipInfoResponse.data.company?.name || ipInfoResponse.data.asn?.name || "Unknown";
-        isScraperISP = SCRAPER_ISPS.some((knownISP) =>
-          isp.toLowerCase().includes(knownISP.toLowerCase())
+        isScraperISP = SCRAPER_ISPS.some((blacklistedISP) =>
+          isp.toLowerCase().includes(blacklistedISP.toLowerCase())
         );
       }
     } catch (error) {
