@@ -1,23 +1,23 @@
-# Use the official Node.js image as the base
-FROM node:16-alpine
+# Use Node 18 for better compatibility with Next.js 13+
+FROM node:18-alpine
 
-# Set the working directory inside the container
+# Set working directory
 WORKDIR /app
 
-# Copy the package.json and package-lock.json
+# Copy dependency files
 COPY package*.json ./
 
 # Install dependencies
 RUN npm install
 
-# Copy the rest of the project files
+# Copy everything else
 COPY . .
 
-# Build the Next.js application
+# Build the app
 RUN npm run build
 
-# Expose the port Next.js runs on
+# Expose port
 EXPOSE 3000
 
-# Start the application
+# Start the app
 CMD ["npm", "start"]
