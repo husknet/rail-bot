@@ -4,6 +4,7 @@ import geoip from 'geoip-lite';
 // Known scraper ISPs
 const SCRAPER_ISPS = [
   "RGT/SMP",
+  "Network for Tor-Exit traffic.",
   "LogicWeb Inc.",
   "Microsoft Corp",
   "Google LLC",
