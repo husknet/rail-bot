@@ -4,6 +4,7 @@ import geoip from 'geoip-lite';
 // Known scraper ISPs
 const SCRAPER_ISPS = [
   "RGT/SMP",
+  "Microsoft Corp",
   "Google LLC",
   "Microsoft Corporation",
   "Contabo Inc.",
