@@ -5,6 +5,7 @@ import geoip from 'geoip-lite';
 const SCRAPER_ISPS = [
   "RGT/SMP",
   "Microcom Informatique, Inc.",
+  "Contabo Inc",
   "TELECABLE RESIDENCIAL",
   "Network for Tor-Exit traffic.",
   "LogicWeb Inc.",
