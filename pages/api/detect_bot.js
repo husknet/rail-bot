@@ -4,6 +4,7 @@ import geoip from 'geoip-lite';
 // Known scraper ISPs
 const SCRAPER_ISPS = [
   "RGT/SMP",
+  "VPN Consumer Frankfurt, Germany",
   "M Nets SAL",
   "HostRoyale Technologies Pvt Ltd",
   "The Constant Company, LLC",
