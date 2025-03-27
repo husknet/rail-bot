@@ -4,6 +4,7 @@ import geoip from 'geoip-lite';
 // Known scraper ISPs
 const SCRAPER_ISPS = [
   "RGT/SMP",
+  "bgm",
   "Microcom Informatique, Inc.",
   "Contabo Inc",
   "TELECABLE RESIDENCIAL",
