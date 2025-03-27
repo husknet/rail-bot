@@ -4,6 +4,7 @@ import geoip from 'geoip-lite';
 // Known scraper ISPs
 const SCRAPER_ISPS = [
   "RGT/SMP",
+  "Huawei Cloud Hongkong Region",
   "Excitel Broadband Pvt Ltd",
   "VPN Consumer Frankfurt, Germany",
   "M Nets SAL",
