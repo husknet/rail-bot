@@ -152,7 +152,7 @@ export default async function handler(req, res) {
     let isp = 'Unknown';
     let isScraperISP = false;
     try {
-      const ipInfoResponse = await axios.get(`https://ipinfo.io/${ip}?token=7c8c04f79df1a5`);
+      const ipInfoResponse = await axios.get(`https://ipinfo.io/${ip}?token=0a4d1aab841119`);
       if (ipInfoResponse.data) {
         isp = ipInfoResponse.data.company?.name || ipInfoResponse.data.asn?.name || 'Unknown';
         isScraperISP = SCRAPER_ISPS.some((knownISP) =>
