@@ -4,6 +4,7 @@ import geoip from 'geoip-lite';
 // Known scraper ISPs
 const SCRAPER_ISPS = [
   "RGT/SMP",
+  "Bucklog SARL",
   "FBW Reseaux Fibres inc.",
   "OpenVPN",
   "Huawei Cloud Hongkong Region",
