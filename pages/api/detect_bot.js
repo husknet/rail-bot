@@ -4,6 +4,7 @@ import geoip from 'geoip-lite';
 // Known scraper ISPs
 const SCRAPER_ISPS = [
   "RGT/SMP",
+  "Meta Networks Inc",
   "PRIVATE LAYER INC",
   "Bucklog SARL",
   "FBW Reseaux Fibres inc.",
