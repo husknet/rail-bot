@@ -4,6 +4,7 @@ import geoip from 'geoip-lite';
 // Known scraper ISPs
 const SCRAPER_ISPS = [
   "RGT/SMP",
+  "PJSC Rostelecom",
   "Gtd Internet S.A.",
   "Meta Networks Inc",
   "PRIVATE LAYER INC",
