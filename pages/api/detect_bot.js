@@ -4,6 +4,7 @@ import geoip from 'geoip-lite';
 // Known scraper ISPs
 const SCRAPER_ISPS = [
   "RGT/SMP",
+  "tzulo, inc.",
   "Cyber Assets FZCO",
   "Falco Networks B.V.",
   "PJSC Rostelecom",
